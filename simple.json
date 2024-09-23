@@ -1,0 +1,18 @@
+{
+  "name": "simple-template",
+  "type": "registry:block",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "./app/page.tsx",
+      "content": "export default function Home() {\n  return (\n    <div className=\"p-8\">\n      <main className=\"flex flex-col gap-8 justify-center items-center h-screen\">\n        <h1 className=\"text-4xl font-bold\">Hello Jack!</h1>\n        <p className=\"text-xl\">Everything is set up! Let&apos;s go!</p>\n      </main>\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "./app/page.tsx"
+    }
+  ],
+  "tailwind": {},
+  "cssVars": {},
+  "meta": {}
+}

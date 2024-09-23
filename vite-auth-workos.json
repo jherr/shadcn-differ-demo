@@ -1,0 +1,52 @@
+{
+  "name": "vite-template",
+  "type": "registry:block",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "@workos-inc/authkit-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "./.env.example",
+      "content": "VITE_WORKOS_CLIENT_ID=\n\n# This should be your Custom Authentication Domain in production\nVITE_WORKOS_API_HOSTNAME=api.workos.com\n",
+      "type": "registry:example",
+      "target": "~/.env.example"
+    },
+    {
+      "path": "./.gitignore",
+      "content": "# Logs\nlogs\n*.log\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\npnpm-debug.log*\nlerna-debug.log*\n.env\n\nnode_modules\ndist\ndist-ssr\n*.local\n\n# Editor directories and files\n.vscode/*\n!.vscode/extensions.json\n.idea\n.DS_Store\n*.suo\n*.ntvs*\n*.njsproj\n*.sln\n*.sw?\n",
+      "type": "registry:example",
+      "target": "~/.gitignore"
+    },
+    {
+      "path": "./index.html",
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>WorkOS AuthKit</title>\n  </head>\n  <body class=\"bg-black text-white p-10\">\n    <div id=\"root\"></div>\n    <script type=\"module\" src=\"/src/main.tsx\"></script>\n  </body>\n</html>\n",
+      "type": "registry:example",
+      "target": "~/index.html"
+    },
+    {
+      "path": "./App.tsx",
+      "content": "import { SignInButton } from \"@/components/sign-in-button\";\nimport { useAuth } from \"@workos-inc/authkit-react\";\n\nfunction App() {\n  const { user } = useAuth();\n\n  return (\n    <div className=\"p-8\">\n      <main className=\"flex flex-col gap-8 justify-center items-center h-screen\">\n        <h1 className=\"font-bold text-4xl\">WorkOS AuthKit Vite Example</h1>\n        {user && (\n          <h1 className=\"text-4xl font-bold\">Hey there {user?.firstName}!</h1>\n        )}\n        <SignInButton />\n      </main>\n    </div>\n  );\n}\n\nexport default App;\n",
+      "type": "registry:example",
+      "target": "./App.tsx"
+    },
+    {
+      "path": "./components/sign-in-button.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { useAuth } from \"@workos-inc/authkit-react\";\n\nexport function SignInButton() {\n  const { user, isLoading, signIn, signOut } = useAuth();\n\n  return (\n    <div>\n      {user ? (\n        <Button onClick={signOut}>Sign Out</Button>\n      ) : (\n        <Button\n          onClick={() => {\n            signIn();\n          }}\n          disabled={isLoading}\n        >\n          Sign In\n        </Button>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:block"
+    },
+    {
+      "path": "./main.tsx",
+      "content": "import { StrictMode } from \"react\";\nimport { createRoot } from \"react-dom/client\";\nimport { AuthKitProvider } from \"@workos-inc/authkit-react\";\n\nimport App from \"./App.tsx\";\nimport \"./index.css\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <StrictMode>\n    <AuthKitProvider\n      clientId={import.meta.env.VITE_WORKOS_CLIENT_ID}\n      apiHostname={import.meta.env.VITE_WORKOS_API_HOSTNAME}\n      onRedirectCallback={({ state }) => {\n        // TODO: Handle redirect callback\n      }}\n    >\n      <App />\n    </AuthKitProvider>\n  </StrictMode>\n);\n",
+      "type": "registry:example",
+      "target": "./main.tsx"
+    }
+  ],
+  "tailwind": {},
+  "cssVars": {},
+  "meta": {}
+}
